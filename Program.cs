@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using RitmSync_backend.Data;
+using RitmSync_backend.Endpoints;
 
 Env.Load();
 
@@ -13,6 +14,6 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapUserEndpoints();
 
 app.Run();
