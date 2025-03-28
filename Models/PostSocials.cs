@@ -20,6 +20,7 @@ public class PostSocials
 
     [Column("link")]
     [Required]
+    [Url]
     public string Link { get; set; }
 
     [ForeignKey("PostId")]
