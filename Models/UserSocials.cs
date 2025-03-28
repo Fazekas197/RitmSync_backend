@@ -20,6 +20,7 @@ public class UserSocials
 
     [Column("link")]
     [Required]
+    [Url]
     public string Link { get; set; }
 
     [ForeignKey("UserId")]
