@@ -13,6 +13,7 @@ public class AppDBContext : DbContext
     public DbSet<UserGenres> UserGenres { get; set; } = null!;
     public DbSet<UserInstruments> UserInstruments { get; set; } = null!;
     public DbSet<UserSocials> UserSocials { get; set; } = null!;
+    public DbSet<Posts> Posts { get; set; } = null!;
 
 
     public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
