@@ -23,7 +23,7 @@ public class UserExperience
     public DateTime Start { get; set; }
 
     [Column("end_date")]
-    public DateTime End { get; set; } = null
+    public DateTime? End { get; set; } = null;
 
     [ForeignKey("UserId")]
     public User User { get; set; }
