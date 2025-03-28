@@ -19,7 +19,7 @@ public class County
     [MaxLength(2)]
     public string Abv
     {
-        get => _abv;
-        set => _abv = value.ToUpper();
+        get => Abv;
+        set => Abv = value.ToUpper();
     }
 }
