@@ -23,5 +23,5 @@ public class PostSocials
     public string Link { get; set; }
 
     [ForeignKey("PostId")]
-    public Post Post { get; set; }
+    public Posts Post { get; set; }
 }

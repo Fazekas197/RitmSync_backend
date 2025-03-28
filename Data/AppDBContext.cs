@@ -14,9 +14,9 @@ public class AppDBContext : DbContext
     public DbSet<UserInstruments> UserInstruments { get; set; } = null!;
     public DbSet<UserSocials> UserSocials { get; set; } = null!;
     public DbSet<Posts> Posts { get; set; } = null!;
-    public DbSet<PostsInstruments> PostsInstruments { get; set; } = null!;
-    public DbSet<PostsGenres> PostsGenres { get; set; } = null!;
-    public DbSet<PostsSocials> PostsSocials { get; set; } = null!;
+    public DbSet<PostInstruments> PostsInstruments { get; set; } = null!;
+    public DbSet<PostGenres> PostsGenres { get; set; } = null!;
+    public DbSet<PostSocials> PostsSocials { get; set; } = null!;
 
 
     public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }

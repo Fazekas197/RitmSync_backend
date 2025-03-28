@@ -7,7 +7,7 @@ namespace RitmSync_backend.Models;
 
 [Table("post_genres")]
 [PrimaryKey(nameof(PostId), nameof(GenresId))]
-public class UserGenres
+public class PostGenres
 {
     [Column("post_id")]
     [Required]
@@ -18,7 +18,7 @@ public class UserGenres
     public int GenresId { get; set; }
 
     [ForeignKey("PostId")]
-    public Post Post { get; set; }
+    public Posts Post { get; set; }
 
     [ForeignKey("GenresId")]
     public Genres Genre { get; set; }
