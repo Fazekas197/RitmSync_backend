@@ -12,6 +12,7 @@ public class User
     [Column("email")]
     [Required]
     [MaxLength(40)]
+    [EmailAddress]
     public string Email { get; set; }
 
     [Column("pass_hash")]
@@ -22,12 +23,12 @@ public class User
     [Column("first_name")]
     [Required]
     [MaxLength(20)]
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; }
 
     [Column("last_name")]
     [Required]
     [MaxLength(20)]
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
 
     [Column("open_for_collab")]
     public bool OpenForCollab { get; set; } = true;
