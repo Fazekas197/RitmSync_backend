@@ -9,7 +9,7 @@ namespace RitmSync_backend.Models;
 [PrimaryKey(nameof(PostId), nameof(GenresId))]
 public class UserGenres
 {
-    [Column("user_id")]
+    [Column("post_id")]
     [Required]
     public int PostId { get; set; }
 
