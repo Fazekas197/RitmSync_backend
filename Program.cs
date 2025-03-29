@@ -23,5 +23,6 @@ using (var scope = app.Services.CreateScope())
 
 app.MapUserEndpoints();
 app.MapCountyEndpoints();
+app.MapInstrumentsEndpoints();
 
 app.Run();
