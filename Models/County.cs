@@ -17,5 +17,5 @@ public class County
     [Column("abv")]
     [Required]
     [MaxLength(2)]
-    public string Abv { get; set; }
+    public string? Abv { get; set; }
 }
