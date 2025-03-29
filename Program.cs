@@ -1,6 +1,7 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using RitmSync_backend.Data;
+using RitmSync_backend.Database;
 using RitmSync_backend.Endpoints;
 
 Env.Load();
@@ -13,6 +14,12 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseNpgsql(connectionString));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+    DatabaseSeeder.Seed(db);
+}
 
 app.MapUserEndpoints();
 
