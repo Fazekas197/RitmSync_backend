@@ -15,6 +15,10 @@ public static class DatabaseSeeder
         {
             ExecuteSqlScript(db, "genres.sql");
         }
+        if (!db.Instruments.Any())
+        {
+            ExecuteSqlScript(db, "instruments.sql");
+        }
     }
 
     private static void ExecuteSqlScript(AppDBContext db, string fileName)
