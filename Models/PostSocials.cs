@@ -16,13 +16,13 @@ public class PostSocials
     [Column("platform")]
     [Required]
     [MaxLength(60)]
-    public string Platform { get; set; }
+    public string? Platform { get; set; }
 
     [Column("link")]
     [Required]
     [Url]
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
     [ForeignKey("PostId")]
-    public Posts Post { get; set; }
+    public Posts? Post { get; set; }
 }

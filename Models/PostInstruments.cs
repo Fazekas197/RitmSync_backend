@@ -18,8 +18,8 @@ public class PostInstruments
     public int InstrumentId { get; set; }
 
     [ForeignKey("PostId")]
-    public Posts Post { get; set; }
+    public Posts? Post { get; set; }
 
     [ForeignKey("InstrumentId")]
-    public Instruments Instrument { get; set; }
+    public Instruments? Instrument { get; set; }
 }

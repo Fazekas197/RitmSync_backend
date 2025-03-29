@@ -18,8 +18,8 @@ public class UserGenres
     public int GenresId { get; set; }
 
     [ForeignKey("UserId")]
-    public User User { get; set; }
+    public User? User { get; set; }
 
     [ForeignKey("GenresId")]
-    public Genres Genre { get; set; }
+    public Genres? Genre { get; set; }
 }

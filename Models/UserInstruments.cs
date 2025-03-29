@@ -18,8 +18,8 @@ public class UserInstruments
     public int InstrumentId { get; set; }
 
     [ForeignKey("UserId")]
-    public User User { get; set; }
+    public User? User { get; set; }
 
     [ForeignKey("InstrumentId")]
-    public Instruments Instrument { get; set; }
+    public Instruments? Instrument { get; set; }
 }

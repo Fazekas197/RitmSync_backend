@@ -16,7 +16,7 @@ public class UserExperience
     [Column("project_name")]
     [Required]
     [MaxLength(60)]
-    public string ProjectName { get; set; }
+    public string? ProjectName { get; set; }
 
     [Column("start_date")]
     [Required]
@@ -26,5 +26,5 @@ public class UserExperience
     public DateTime? End { get; set; } = null;
 
     [ForeignKey("UserId")]
-    public User User { get; set; }
+    public User? User { get; set; }
 }

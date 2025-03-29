@@ -18,8 +18,8 @@ public class PostGenres
     public int GenresId { get; set; }
 
     [ForeignKey("PostId")]
-    public Posts Post { get; set; }
+    public Posts? Post { get; set; }
 
     [ForeignKey("GenresId")]
-    public Genres Genre { get; set; }
+    public Genres? Genre { get; set; }
 }

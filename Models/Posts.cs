@@ -17,7 +17,7 @@ public class Posts
     [Column("title")]
     [Required]
     [MaxLength(30)]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [Column("county_id")]
     [Required]
@@ -25,7 +25,7 @@ public class Posts
 
     [Column("description")]
     [Required]
-    public string Desc { get; set; }
+    public string? Desc { get; set; }
 
     [Column("email")]
     public string? Email { get; set; }
@@ -34,8 +34,8 @@ public class Posts
     public string? Phone { get; set; }
 
     [ForeignKey("UserId")]
-    public User User { get; set; }
+    public User? User { get; set; }
 
     [ForeignKey("CountyId")]
-    public County County { get; set; }
+    public County? County { get; set; }
 }

@@ -16,13 +16,13 @@ public class UserSocials
     [Column("platform")]
     [Required]
     [MaxLength(60)]
-    public string Platform { get; set; }
+    public string? Platform { get; set; }
 
     [Column("link")]
     [Required]
     [Url]
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
     [ForeignKey("UserId")]
-    public User User { get; set; }
+    public User? User { get; set; }
 }
