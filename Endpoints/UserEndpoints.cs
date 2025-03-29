@@ -3,7 +3,7 @@ using RitmSync_backend.Models;
 
 namespace RitmSync_backend.Endpoints;
 
-public static class RitmSyncEndpoint
+public static class UserEndpoint
 {
     public static void MapUserEndpoints(this WebApplication app)
     {
