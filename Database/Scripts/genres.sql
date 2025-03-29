@@ -1,0 +1,20 @@
+-- SQL Script to populate genres table
+INSERT INTO genres ("id", "name") VALUES
+(1, 'Rock'),
+(2, 'Metal'),
+(3, 'Punk'),
+(4, 'Blues'),
+(5, 'Jazz'),
+(6, 'Electro'),
+(7, 'Country'),
+(8, 'Folk'),
+(9, 'Reggae'),
+(10, 'Clasic'),
+(11, 'Balkanic'),
+(12, 'Ethnic'),
+(13, 'Pop'),
+(14, 'R&B & soul'),
+(15, 'Indie'),
+(16, 'Alternative'),
+(17, 'Funk'),
+(18, 'Rap');
