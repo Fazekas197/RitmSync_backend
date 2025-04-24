@@ -14,7 +14,12 @@ public static class StaticDataEndpoint
         {
             try
             {
-                return Results.Ok(db.County);
+                List<County> counties = db.County.ToList();
+                List<Genres> genres = db.Genres.ToList();
+                List<Instruments> instruments = db.Instruments.ToList();
+                StaticDataDTO staticDataDTO = new StaticDataDTO(counties, genres, instruments);
+
+                return Results.Ok(staticDataDTO);
             }
             catch (System.Exception e)
             {
