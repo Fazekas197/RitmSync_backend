@@ -25,5 +25,6 @@ app.MapUserEndpoints();
 app.MapCountyEndpoints();
 app.MapInstrumentsEndpoints();
 app.MapGenresEndpoints();
+app.MapStaticDataEndpoints();
 
 app.Run();
