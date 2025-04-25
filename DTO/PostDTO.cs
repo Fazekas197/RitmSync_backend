@@ -25,7 +25,7 @@ public class PostDTO
         Title = post.Title;
         County = post.County?.Name;
         Desc = post.Desc;
-        ShortDesc = Desc?.Length < 100 ? Desc : Desc?.Substring(0, 100) + "...";
+        ShortDesc = Desc?.Length < 200 ? Desc : Desc?.Substring(0, 200) + "...";
         Email = post.Email;
         Phone = post.Phone;
         Instruments = instruments;
