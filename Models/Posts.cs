@@ -10,6 +10,9 @@ public class Posts
     [Column("id")]
     public int Id { get; set; }
 
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; } = new DateTime().Date;
+
     [Column("user_id")]
     [Required]
     public int UserId { get; set; }
