@@ -51,5 +51,39 @@ public static class UserEndpoint
                 return Results.Problem(e.Message);
             }
         });
+
+        group.MapGet("/{id}", async (AppDBContext db, int id) =>
+        {
+            try
+            {
+                var user = await db.Users.Include(u => u.County).FirstOrDefaultAsync(u => u.Id == id);
+
+                var experience = await db.UserExperience
+                      .Where(ex => ex.UserId == user!.Id)
+                      .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
+                      .ToListAsync();
+
+                var genres = await db.UserGenres
+                 .Where(ug => ug.UserId == user!.Id)
+                 .Select(ug => ug.Genre!.Name!).ToListAsync();
+
+                var instruments = await db.UserInstruments
+                    .Where(ui => ui.UserId == user!.Id)
+                    .Select(ui => ui.Instrument!.Name!).ToListAsync();
+
+                var socials = await db.UserSocials
+                   .Where(us => us.UserId == user!.Id)
+                   .Select(us => new SocialDTO(us.Platform!, us.Link!))
+                   .ToListAsync();
+
+                UserDTO userDTO = new UserDTO(user!, experience, genres, instruments, socials);
+                return Results.Ok(userDTO);
+
+            }
+            catch (System.Exception e)
+            {
+                return Results.Problem(e.Message);
+            }
+        });
     }
 }
