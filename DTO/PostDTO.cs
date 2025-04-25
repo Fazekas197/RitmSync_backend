@@ -13,6 +13,7 @@ public class PostDTO
     public string? ShortDesc { get; set; }
     public string? Email { get; set; }
     public string? Phone { get; set; }
+    public DateTime CreatedAt { get; set; }
     public List<string> Instruments { get; set; } = new List<string>();
     public List<string> Genres { get; set; } = new List<string>();
     public List<string> Socials { get; set; } = new List<string>();
@@ -30,5 +31,7 @@ public class PostDTO
         Instruments = instruments;
         Genres = genres;
         Socials = socials;
+        CreatedAt = post.CreatedAt.Date;
+
     }
 }
