@@ -50,7 +50,7 @@ public static class PostsEndpoint
         {
             try
             {
-                var postFromDB = await db.Posts.FindAsync(id);
+                var postFromDB = await db.Posts.Include(p => p.User).Include(p => p.County).FirstOrDefaultAsync(p => p.Id == id);
 
                 var instruments = await db.PostsInstruments
                     .Where(pi => pi.PostId == postFromDB!.Id)
