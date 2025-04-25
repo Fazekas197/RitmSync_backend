@@ -16,9 +16,9 @@ public class PostDTO
     public DateTime CreatedAt { get; set; }
     public List<string> Instruments { get; set; } = new List<string>();
     public List<string> Genres { get; set; } = new List<string>();
-    public List<string> Socials { get; set; } = new List<string>();
+    public List<SocialDTO> Socials { get; set; } = new List<SocialDTO>();
 
-    public PostDTO(Posts post, List<string> instruments, List<string> genres, List<string> socials)
+    public PostDTO(Posts post, List<string> instruments, List<string> genres, List<SocialDTO> socials)
     {
         Id = post.Id;
         User = post.User?.LastName + " " + post.User?.FirstName;

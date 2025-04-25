@@ -32,7 +32,7 @@ public static class PostsEndpoint
 
                     var socials = await db.PostsSocials
                         .Where(ps => ps.PostId == post.Id)
-                        .Select(ps => ps.Link!)
+                        .Select(ps => new SocialDTO(ps.Platform!, ps.Link!))
                         .ToListAsync();
 
                     var postDTO = new PostDTO(post, instruments, genres, socials);
@@ -62,7 +62,7 @@ public static class PostsEndpoint
 
                 var socials = await db.PostsSocials
                     .Where(ps => ps.PostId == postFromDB!.Id)
-                    .Select(ps => ps.Link!).ToListAsync();
+                    .Select(ps => new SocialDTO(ps.Platform!, ps.Link!)).ToListAsync();
 
                 PostDTO postDTO = new PostDTO(postFromDB!, instruments, genres, socials);
                 return Results.Ok(postDTO);
