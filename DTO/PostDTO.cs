@@ -15,4 +15,18 @@ public class PostDTO
     public List<Instruments> Instruments { get; set; } = new List<Instruments>();
     public List<Genres> Genres { get; set; } = new List<Genres>();
     public List<PostSocials> Socials { get; set; } = new List<PostSocials>();
+
+    public PostDTO(Posts post, List<Instruments> instruments, List<Genres> genres, List<PostSocials> socials)
+    {
+        Id = post.Id;
+        User = post.User?.LastName + " " + post.User?.FirstName;
+        Title = post.Title;
+        County = post.County?.Name;
+        Desc = post.Desc;
+        Email = post.Email;
+        Phone = post.Phone;
+        Instruments = instruments;
+        Genres = genres;
+        Socials = socials;
+    }
 }
