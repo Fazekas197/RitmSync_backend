@@ -13,11 +13,11 @@ public class PostDTO
     public string? ShortDesc { get; set; }
     public string? Email { get; set; }
     public string? Phone { get; set; }
-    public List<Instruments> Instruments { get; set; } = new List<Instruments>();
-    public List<Genres> Genres { get; set; } = new List<Genres>();
-    public List<PostSocials> Socials { get; set; } = new List<PostSocials>();
+    public List<string> Instruments { get; set; } = new List<string>();
+    public List<string> Genres { get; set; } = new List<string>();
+    public List<string> Socials { get; set; } = new List<string>();
 
-    public PostDTO(Posts post, List<Instruments> instruments, List<Genres> genres, List<PostSocials> socials)
+    public PostDTO(Posts post, List<string> instruments, List<string> genres, List<string> socials)
     {
         Id = post.Id;
         User = post.User?.LastName + " " + post.User?.FirstName;

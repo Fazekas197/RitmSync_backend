@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RitmSync_backend.Data;
 using RitmSync_backend.DTO;
 using RitmSync_backend.Models;
@@ -10,11 +11,34 @@ public static class PostsEndpoint
     {
         var group = app.MapGroup("/posts");
 
-        group.MapGet("/", (AppDBContext db) =>
+        group.MapGet("/", async (AppDBContext db) =>
         {
             try
             {
-                return Results.Ok(db.Posts);
+                List<PostDTO> postDTOs = new List<PostDTO>();
+
+                var postsFromDB = await db.Posts.Include(p => p.User).Include(p => p.County).ToListAsync();
+                foreach (var post in postsFromDB)
+                {
+                    var instruments = await db.PostsInstruments
+                        .Where(pi => pi.PostId == post.Id)
+                        .Select(pi => pi.Instrument!.Name!)
+                        .ToListAsync();
+
+                    var genres = await db.PostsGenres
+                        .Where(pg => pg.PostId == post.Id)
+                        .Select(pg => pg.Genre!.Name!)
+                        .ToListAsync();
+
+                    var socials = await db.PostsSocials
+                        .Where(ps => ps.PostId == post.Id)
+                        .Select(ps => ps.Link!)
+                        .ToListAsync();
+
+                    var postDTO = new PostDTO(post, instruments, genres, socials);
+                    postDTOs.Add(postDTO);
+                }
+                return Results.Ok(postDTOs);
             }
             catch (System.Exception e)
             {
