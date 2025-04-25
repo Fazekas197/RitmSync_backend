@@ -13,10 +13,10 @@ public class UserDTO
     public string? Desc { get; set; }
     public string? ShortDesc { get; set; }
     public string? County { get; set; }
-    List<UserExperience> Experience { get; set; } = new List<UserExperience>();
-    List<string> Genres { get; set; } = new List<string>();
-    List<string> Instruments { get; set; } = new List<string>();
-    List<SocialDTO> Socials { get; set; } = new List<SocialDTO>();
+    public List<UserExperience> Experience { get; set; } = new List<UserExperience>();
+    public List<string> Genres { get; set; } = new List<string>();
+    public List<string> Instruments { get; set; } = new List<string>();
+    public List<SocialDTO> Socials { get; set; } = new List<SocialDTO>();
 
     public UserDTO(User user, List<UserExperience> experience, List<string> genres, List<string> instruments, List<SocialDTO> socials)
     {
