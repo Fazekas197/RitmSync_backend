@@ -21,7 +21,9 @@ public static class UserEndpoint
                 foreach (var user in users)
                 {
                     var experience = await db.UserExperience
-                        .Where(ex => ex.UserId == user.Id).ToListAsync();
+                        .Where(ex => ex.UserId == user.Id)
+                        .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
+                        .ToListAsync();
 
                     var genres = await db.UserGenres
                         .Where(ug => ug.UserId == user.Id)

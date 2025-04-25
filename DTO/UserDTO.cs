@@ -13,12 +13,12 @@ public class UserDTO
     public string? Desc { get; set; }
     public string? ShortDesc { get; set; }
     public string? County { get; set; }
-    public List<UserExperience> Experience { get; set; } = new List<UserExperience>();
+    public List<UserExperienceDTO> Experience { get; set; } = new List<UserExperienceDTO>();
     public List<string> Genres { get; set; } = new List<string>();
     public List<string> Instruments { get; set; } = new List<string>();
     public List<SocialDTO> Socials { get; set; } = new List<SocialDTO>();
 
-    public UserDTO(User user, List<UserExperience> experience, List<string> genres, List<string> instruments, List<SocialDTO> socials)
+    public UserDTO(User user, List<UserExperienceDTO> experience, List<string> genres, List<string> instruments, List<SocialDTO> socials)
     {
         Id = user.Id;
         Email = user.Email;
