@@ -16,7 +16,9 @@ public static class UserEndpoint
             try
             {
                 List<UserDTO> userDTOs = new List<UserDTO>();
-                var users = await db.Users.Include(u => u.County).ToListAsync();
+                var users = await db.Users
+                    .Where(u => u.OpenForCollab)
+                    .Include(u => u.County).ToListAsync();
 
                 foreach (var user in users)
                 {
