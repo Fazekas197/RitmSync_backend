@@ -6,7 +6,8 @@ namespace RitmSync_backend.DTO;
 public class PostDTO
 {
     public int Id { get; set; }
-    public string? User { get; set; }
+    public string User { get; set; }
+    public int? UserId { get; set; }
     public string? Title { get; set; }
     public string? County { get; set; }
     public string? Desc { get; set; }
@@ -22,6 +23,7 @@ public class PostDTO
     {
         Id = post.Id;
         User = post.User?.LastName + " " + post.User?.FirstName;
+        UserId = post.User?.Id;
         Title = post.Title;
         County = post.County?.Name;
         Desc = post.Desc;
