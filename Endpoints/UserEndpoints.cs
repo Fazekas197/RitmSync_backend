@@ -22,25 +22,7 @@ public static class UserEndpoint
 
                 foreach (var user in users)
                 {
-                    var experience = await db.UserExperience
-                        .Where(ex => ex.UserId == user.Id)
-                        .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
-                        .ToListAsync();
-
-                    var genres = await db.UserGenres
-                        .Where(ug => ug.UserId == user.Id)
-                        .Select(ug => ug.Genre!.Name!).ToListAsync();
-
-                    var instruments = await db.UserInstruments
-                        .Where(ui => ui.UserId == user.Id)
-                        .Select(ui => ui.Instrument!.Name!).ToListAsync();
-
-                    var socials = await db.UserSocials
-                       .Where(us => us.UserId == user.Id)
-                       .Select(us => new SocialDTO(us.Platform!, us.Link!))
-                       .ToListAsync();
-
-                    UserDTO userDTO = new UserDTO(user, experience, genres, instruments, socials);
+                    var userDTO = await CreateUserDTOAsync(db, user);
                     userDTOs.Add(userDTO);
                 }
 
@@ -58,25 +40,10 @@ public static class UserEndpoint
             {
                 var user = await db.Users.Include(u => u.County).FirstOrDefaultAsync(u => u.Id == id);
 
-                var experience = await db.UserExperience
-                      .Where(ex => ex.UserId == user!.Id)
-                      .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
-                      .ToListAsync();
+                if (user == null)
+                    return Results.NotFound();
 
-                var genres = await db.UserGenres
-                 .Where(ug => ug.UserId == user!.Id)
-                 .Select(ug => ug.Genre!.Name!).ToListAsync();
-
-                var instruments = await db.UserInstruments
-                    .Where(ui => ui.UserId == user!.Id)
-                    .Select(ui => ui.Instrument!.Name!).ToListAsync();
-
-                var socials = await db.UserSocials
-                   .Where(us => us.UserId == user!.Id)
-                   .Select(us => new SocialDTO(us.Platform!, us.Link!))
-                   .ToListAsync();
-
-                UserDTO userDTO = new UserDTO(user!, experience, genres, instruments, socials);
+                var userDTO = await CreateUserDTOAsync(db, user);
                 return Results.Ok(userDTO);
 
             }
@@ -85,5 +52,28 @@ public static class UserEndpoint
                 return Results.Problem(e.Message);
             }
         });
+    }
+
+    private static async Task<UserDTO> CreateUserDTOAsync(AppDBContext db, User user)
+    {
+        var experience = await db.UserExperience
+              .Where(ex => ex.UserId == user!.Id)
+              .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
+              .ToListAsync();
+
+        var genres = await db.UserGenres
+         .Where(ug => ug.UserId == user!.Id)
+         .Select(ug => ug.Genre!.Name!).ToListAsync();
+
+        var instruments = await db.UserInstruments
+            .Where(ui => ui.UserId == user!.Id)
+            .Select(ui => ui.Instrument!.Name!).ToListAsync();
+
+        var socials = await db.UserSocials
+           .Where(us => us.UserId == user!.Id)
+           .Select(us => new SocialDTO(us.Platform!, us.Link!))
+           .ToListAsync();
+
+        return new UserDTO(user!, experience, genres, instruments, socials);
     }
 }
