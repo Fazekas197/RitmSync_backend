@@ -20,22 +20,7 @@ public static class PostsEndpoint
                 var postsFromDB = await db.Posts.Include(p => p.User).Include(p => p.County).ToListAsync();
                 foreach (var post in postsFromDB)
                 {
-                    var instruments = await db.PostsInstruments
-                        .Where(pi => pi.PostId == post.Id)
-                        .Select(pi => pi.Instrument!.Name!)
-                        .ToListAsync();
-
-                    var genres = await db.PostsGenres
-                        .Where(pg => pg.PostId == post.Id)
-                        .Select(pg => pg.Genre!.Name!)
-                        .ToListAsync();
-
-                    var socials = await db.PostsSocials
-                        .Where(ps => ps.PostId == post.Id)
-                        .Select(ps => new SocialDTO(ps.Platform!, ps.Link!))
-                        .ToListAsync();
-
-                    var postDTO = new PostDTO(post, instruments, genres, socials);
+                    var postDTO = await CreatePostDTOAsync(db, post);
                     postDTOs.Add(postDTO);
                 }
                 return Results.Ok(postDTOs);
@@ -52,19 +37,10 @@ public static class PostsEndpoint
             {
                 var postFromDB = await db.Posts.Include(p => p.User).Include(p => p.County).FirstOrDefaultAsync(p => p.Id == id);
 
-                var instruments = await db.PostsInstruments
-                    .Where(pi => pi.PostId == postFromDB!.Id)
-                    .Select(pi => pi.Instrument!.Name!).ToListAsync();
+                if (postFromDB == null)
+                    return Results.NotFound();
 
-                var genres = await db.PostsGenres
-                    .Where(pg => pg.PostId == postFromDB!.Id)
-                    .Select(pg => pg.Genre!.Name!).ToListAsync();
-
-                var socials = await db.PostsSocials
-                    .Where(ps => ps.PostId == postFromDB!.Id)
-                    .Select(ps => new SocialDTO(ps.Platform!, ps.Link!)).ToListAsync();
-
-                PostDTO postDTO = new PostDTO(postFromDB!, instruments, genres, socials);
+                var postDTO = await CreatePostDTOAsync(db, postFromDB);
                 return Results.Ok(postDTO);
             }
             catch (System.Exception e)
@@ -83,22 +59,7 @@ public static class PostsEndpoint
                 var postsFromDB = await db.Posts.Where(p => p.UserId == id).Include(p => p.User).Include(p => p.County).ToListAsync();
                 foreach (var post in postsFromDB)
                 {
-                    var instruments = await db.PostsInstruments
-                        .Where(pi => pi.PostId == post.Id)
-                        .Select(pi => pi.Instrument!.Name!)
-                        .ToListAsync();
-
-                    var genres = await db.PostsGenres
-                        .Where(pg => pg.PostId == post.Id)
-                        .Select(pg => pg.Genre!.Name!)
-                        .ToListAsync();
-
-                    var socials = await db.PostsSocials
-                        .Where(ps => ps.PostId == post.Id)
-                        .Select(ps => new SocialDTO(ps.Platform!, ps.Link!))
-                        .ToListAsync();
-
-                    var postDTO = new PostDTO(post, instruments, genres, socials);
+                    var postDTO = await CreatePostDTOAsync(db, post);
                     postDTOs.Add(postDTO);
                 }
                 return Results.Ok(postDTOs);
@@ -109,5 +70,25 @@ public static class PostsEndpoint
                 return Results.Problem(e.Message); ;
             }
         });
+    }
+
+    private static async Task<PostDTO> CreatePostDTOAsync(AppDBContext db, Posts post)
+    {
+        var instruments = await db.PostsInstruments
+            .Where(pi => pi.PostId == post.Id)
+            .Select(pi => pi.Instrument!.Name!)
+            .ToListAsync();
+
+        var genres = await db.PostsGenres
+            .Where(pg => pg.PostId == post.Id)
+            .Select(pg => pg.Genre!.Name!)
+            .ToListAsync();
+
+        var socials = await db.PostsSocials
+            .Where(ps => ps.PostId == post.Id)
+            .Select(ps => new SocialDTO(ps.Platform!, ps.Link!))
+            .ToListAsync();
+
+        return new PostDTO(post, instruments, genres, socials);
     }
 }
