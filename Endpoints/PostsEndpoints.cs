@@ -86,6 +86,7 @@ public static class PostsEndpoint
 
         var socials = await db.PostsSocials
             .Where(ps => ps.PostId == post.Id)
+            .OrderBy(us => us.Platform)
             .Select(ps => new SocialDTO(ps.Platform!, ps.Link!))
             .ToListAsync();
 
