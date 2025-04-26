@@ -58,6 +58,7 @@ public static class UserEndpoint
     {
         var experience = await db.UserExperience
               .Where(ex => ex.UserId == user!.Id)
+              .OrderByDescending(ex => ex.Start)
               .Select(ex => new UserExperienceDTO(ex.ProjectName!, ex.Start, ex.End))
               .ToListAsync();
 
