@@ -84,6 +84,30 @@ public static class PostsEndpoint
             db.Posts.Add(post);
             await db.SaveChangesAsync();
 
+            foreach (var id in createPostDTO.Instruments)
+            {
+                PostInstruments instrument = new PostInstruments();
+                instrument.PostId = post.Id;
+                instrument.InstrumentId = id;
+                db.PostsInstruments.Add(instrument);
+            }
+            foreach (var id in createPostDTO.Genres)
+            {
+                PostGenres genre = new PostGenres();
+                genre.PostId = post.Id;
+                genre.GenresId = id;
+                db.PostsGenres.Add(genre);
+            }
+            foreach (var item in createPostDTO.Socials)
+            {
+                PostSocials social = new PostSocials();
+                social.Link = item.Link;
+                social.Platform = item.Platform;
+                social.PostId = post.Id;
+                db.PostsSocials.Add(social);
+            }
+            await db.SaveChangesAsync();
+
             return Results.Ok(post);
 
         });
