@@ -4,9 +4,9 @@ namespace RitmSync_backend.DTO;
 
 public class CreatePostDTO
 {
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
     public string? Title { get; set; }
-    public int? CountyId { get; set; }
+    public int CountyId { get; set; }
     public string? Desc { get; set; }
     public string? Email { get; set; }
     public string? Phone { get; set; }
