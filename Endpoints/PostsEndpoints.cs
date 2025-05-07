@@ -66,50 +66,55 @@ public static class PostsEndpoint
             }
             catch (System.Exception e)
             {
-
-                return Results.Problem(e.Message); ;
+                return Results.Problem(e.Message);
             }
         });
 
         group.MapPost("/", async (AppDBContext db, CreatePostDTO createPostDTO) =>
         {
-            Posts post = new Posts();
-            post.UserId = createPostDTO.UserId;
-            post.Title = createPostDTO.Title;
-            post.CountyId = createPostDTO.CountyId;
-            post.Desc = createPostDTO.Desc;
-            post.Email = createPostDTO.Email;
-            post.Phone = createPostDTO.Phone;
-
-            db.Posts.Add(post);
-            await db.SaveChangesAsync();
-
-            foreach (var id in createPostDTO.Instruments)
+            try
             {
-                PostInstruments instrument = new PostInstruments();
-                instrument.PostId = post.Id;
-                instrument.InstrumentId = id;
-                db.PostsInstruments.Add(instrument);
-            }
-            foreach (var id in createPostDTO.Genres)
-            {
-                PostGenres genre = new PostGenres();
-                genre.PostId = post.Id;
-                genre.GenresId = id;
-                db.PostsGenres.Add(genre);
-            }
-            foreach (var item in createPostDTO.Socials)
-            {
-                PostSocials social = new PostSocials();
-                social.Link = item.Link;
-                social.Platform = item.Platform;
-                social.PostId = post.Id;
-                db.PostsSocials.Add(social);
-            }
-            await db.SaveChangesAsync();
+                Posts post = new Posts();
+                post.UserId = createPostDTO.UserId;
+                post.Title = createPostDTO.Title;
+                post.CountyId = createPostDTO.CountyId;
+                post.Desc = createPostDTO.Desc;
+                post.Email = createPostDTO.Email;
+                post.Phone = createPostDTO.Phone;
 
-            return Results.Ok(post);
+                db.Posts.Add(post);
+                await db.SaveChangesAsync();
 
+                foreach (var id in createPostDTO.Instruments)
+                {
+                    PostInstruments instrument = new PostInstruments();
+                    instrument.PostId = post.Id;
+                    instrument.InstrumentId = id;
+                    db.PostsInstruments.Add(instrument);
+                }
+                foreach (var id in createPostDTO.Genres)
+                {
+                    PostGenres genre = new PostGenres();
+                    genre.PostId = post.Id;
+                    genre.GenresId = id;
+                    db.PostsGenres.Add(genre);
+                }
+                foreach (var item in createPostDTO.Socials)
+                {
+                    PostSocials social = new PostSocials();
+                    social.Link = item.Link;
+                    social.Platform = item.Platform;
+                    social.PostId = post.Id;
+                    db.PostsSocials.Add(social);
+                }
+                await db.SaveChangesAsync();
+
+                return Results.Ok(post);
+            }
+            catch (System.Exception e)
+            {
+                return Results.Problem(e.Message);
+            }
         });
     }
 
