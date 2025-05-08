@@ -116,6 +116,40 @@ public static class PostsEndpoint
                 return Results.Problem(e.Message);
             }
         });
+
+        group.MapDelete("/{id}", async (AppDBContext db, int id) =>
+        {
+            try
+            {
+                var post = await db.Posts.FindAsync(id);
+                if (post != null)
+                {
+                    var PostSocials = await db.PostsSocials.Where(s => s.PostId == post.Id).ToListAsync();
+                    if (PostSocials.Count > 0)
+                        foreach (var item in PostSocials)
+                            db.PostsSocials.Remove(item);
+
+                    var PostIntruments = await db.PostsInstruments.Where(s => s.PostId == post.Id).ToListAsync();
+                    if (PostIntruments.Count > 0)
+                        foreach (var item in PostIntruments)
+                            db.PostsInstruments.Remove(item);
+
+                    var PostGenres = await db.PostsGenres.Where(s => s.PostId == post.Id).ToListAsync();
+                    if (PostGenres.Count > 0)
+                        foreach (var item in PostGenres)
+                            db.PostsGenres.Remove(item);
+
+                    db.Posts.Remove(post);
+                    await db.SaveChangesAsync();
+                    return Results.Ok("Deleted");
+                }
+                return Results.BadRequest("Cannot find Post");
+            }
+            catch (System.Exception e)
+            {
+                return Results.Problem(e.Message);
+            }
+        });
     }
 
     private static async Task<PostDTO> CreatePostDTOAsync(AppDBContext db, Posts post)
